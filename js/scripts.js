@@ -5,25 +5,36 @@ var characterRepository = (function() {
     var apiUrl = 'https://rickandmortyapi.com/api/character';
 
     function loadList() {
-      $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON) {
-        $.each(responseJSON.results, function(index, item) {
+      return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON) {
+        $.each(responseJSON.results, function(index, character) {
           var character = {
-            id: item.id,
-            name: item.name,
-            status: item.status,
-            species: item.species,
-            gender: item.gender
+            id: character.id,
+            name: character.name,
+            url: character.url,
           };
           add(character);
         });
       });
       };
 
+    function loadDetails(character) {
+      var characterUrl = character.url;
+      return $.ajax(characterUrl, {dataType: 'json'}).then(function(responseJSON) {
+        return responseJSON;
+      }).then(function(details) {
+        character.status = details.status;
+        character.species = details.species;
+        character.gender = details.gender;
+        character.imageUrl = details.image;
+      }).catch(function(e) {
+        console.error(e);
+      });
+    };
+
     function add(character) {
       if (
         (typeof character) === 'object' &
-        (typeof character.name) === 'string' &
-        (typeof character.status) === 'string'
+        (typeof character.name) === 'string'
       ) {
         repository.push(character);
       } else {
@@ -35,12 +46,20 @@ var characterRepository = (function() {
       }
     };
 
+    function showDetails(character) {
+      characterRepository.loadDetails(character).then(function () {
+        console.log(character);
+      });
+    };
+
     function addListItem(character) {
       var $listItem = $('<li></li>');
-      var $button = $('<button>'+character.name+'</button>');
-      $('body').append($listItem);
-      $($listItem).append($button);
-      console.log(character);
+      var $button = $('<button class="character-button">'+character.name+'</button>');
+      $characterList.append($listItem);
+      $listItem.append($button);
+      $button.on('click', function(event) {
+        characterRepository.showDetails(character)
+      })
     };
 
     function getAll() {
@@ -48,26 +67,20 @@ var characterRepository = (function() {
     }
 
 return {
+  add: add,
   loadList: loadList,
   addListItem: addListItem,
+  loadDetails: loadDetails,
+  showDetails: showDetails,
   getAll: getAll
 };
 
 }());
 
-characterRepository.loadList();
-console.log(characterRepository.getAll());
-
-// attempts at looping over repository array with addListItem - hasn't worked so far
-// unsure why - anything to do with the fact that the current loadList function isn't returning anything?
-// jquery - trying to iterate over getAll output
-$.each(characterRepository.getAll(), function(index, character) {
-  console.log(character);
+characterRepository.loadList().then(function() {
+  characterRepository.getAll().forEach(function(character) {
+    characterRepository.addListItem(character);
+  });
 });
 
-// trying to iterate over getAll using foreach
-characterRepository.getAll().forEach(function(character) {
-  console.log(character);
-  characterRepository.addListItem(character);
-  console.log(character);
-});
+var $mainTitle = $('<')
