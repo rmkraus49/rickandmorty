@@ -1,11 +1,5 @@
 :root {
-  --primary-color: #369;
-  --secondary-color: #63c;
   --dark-grey: #2b2b2b;
-  --light-grey: #d3d3d3;
-  --visited-color: #05676e;
-  --active-color: #489c79;
-  --button-border-bottom-color: rgba(0, 0, 0, 0.3);
   --bold: 700;
   --standard: 400;
 }
