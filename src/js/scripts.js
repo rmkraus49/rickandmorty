@@ -9,7 +9,7 @@ var characterRepository = (function() {
   function loadList() {
     return $.ajax(apiUrl, {dataType: 'json'}).then(function(responseJSON) {
       $.each(responseJSON.results, function(index, character) {
-        var character = {
+        character = {
           id: character.id,
           name: character.name,
           url: character.url,
@@ -38,25 +38,14 @@ var characterRepository = (function() {
 
   // adds character to repository
   function add(character) {
-    if (
-      (typeof character) === 'object' &
-      (typeof character.name) === 'string'
-    ) {
       repository.push(character);
-    } else {
-      console.log('entry for ' + character.name + ' failed validation');
-      console.log(character);
-      console.log(character.name);
-      console.log(character.status);
-      console.log(character.id);
-    }
   }
 
   // adds new item to main list
   function addListItem(character) {
     var $button = $('<button type="button" class="btn btn-primary btn-block list-group-item character-button" data-toggle="modal" data-target="#detailsModal">' + character.name + '</button>');
     $characterList.append($button);
-    $button.on('click', function(event) {
+    $button.on('click', function() {
       characterRepository.showDetails(character)
     })
   }
