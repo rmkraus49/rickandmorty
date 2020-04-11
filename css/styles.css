@@ -1,18 +1,13 @@
 :root {
   --primary-color: #369;
-  --secondary-color: #e0b354;
+  --secondary-color: #63c;
   --dark-grey: #2b2b2b;
   --light-grey: #d3d3d3;
-  --white: #fff;
   --visited-color: #05676e;
   --active-color: #489c79;
   --button-border-bottom-color: rgba(0, 0, 0, 0.3);
   --bold: 700;
   --standard: 400;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 body {
@@ -22,38 +17,10 @@ body {
   line-height: 1.6;
 }
 
-div {
-  padding: 5px;
-  margin: 5px;
-}
-
 h1 {
   color: var(--dark-grey);
   font-size: 26px;
   font-weight: var(--bold);
-}
-
-button,
-.button {
-  border: none;
-  display: inline-block;
-  font-family: inherit;
-  background-color: var(--light-grey);
-  color: var(--dark-grey);
-  text-decoration: none;
-  padding: 12px 20px;
-  border-radius: 3px;
-  text-align: left;
-  transition: 0.2s opacity;
-}
-
-button:hover,
-button:focus,
-.button:hover,
-.button:focus {
-  /* lets the mouse appear as a hand when hovering */
-  cursor: pointer;
-  opacity: 0.8;
 }
 
 ul {
@@ -70,64 +37,24 @@ li {
 }
 
 .character-button {
-  font-size: 18px;
-  width: 100%;
+  background-color: #855cd6;
+  border-color: #a485e0;
 }
 
-.page-header {
-  display: flex;
-  width: 100%;
-  padding: 10px 30px;
-  align-items: left;
+.character-button:focus,
+.character-button:hover,
+.character-button:active {
+  background-color: #a485e0;
+  border-color: #b399e5;
+  box-shadow: none;
+}
+
+.character-button:active {
+  background-color: #a485e0;
+  border-color: #b399e5;
 }
 
 .character-list-section {
-  margin: 0 30px;
+  margin: 90px auto;
   max-width: 300px;
-}
-
-#modal-container {
-  display: none;
-}
-
-#modal-container.is-visible {
-  position: fixed;
-  padding: 20px;
-  box-sizing: border-box;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  z-index: 999;
-  overflow: auto;
-  display: grid;
-  text-align: center;
-}
-
-.modal {
-  margin: auto;
-  display: inline-block;
-  box-sizing: border-box;
-  background: #fff;
-  padding: 15px;
-  width: 100%;
-  max-width: 700px;
-  text-align: left;
-}
-
-.modal-close {
-  float: right;
-  border: 0;
-  background: none;
-  color: #777;
-  text-decoration: underline;
-}
-
-.modal h1 {
-  margin-top: 0;
-}
-
-.modal p {
-  margin-bottom: 0;
 }
